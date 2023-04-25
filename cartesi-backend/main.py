@@ -1,15 +1,3 @@
-# Copyright 2022 Cartesi Pte. Ltd.
-#
-# SPDX-License-Identifier: Apache-2.0
-# Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-# this file except in compliance with the License. You may obtain a copy of the
-# License at http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software distributed
-# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
-
 from os import environ
 import traceback
 import logging
@@ -42,39 +30,9 @@ def handle_advance(data):
         input = hex2str(data["payload"])
         logger.info(f"Received input: {input}")
 
-        # subprocess
-        fortune = subprocess.check_output("fortune", shell=True, stderr=subprocess.STDOUT).decode()
-
-
         # Emits notice with result of calculation
-        logger.info(f"Adding notice with payload: '{fortune}'")
-        response = requests.post(rollup_server + "/notice", json={"payload": str2hex(str(fortune))})
-        logger.info(f"Received notice status {response.status_code} body {response.content}")
-
-    except Exception as e:
-        status = "reject"
-        msg = f"Error processing data {data}\n{traceback.format_exc()}"
-        logger.error(msg)
-        response = requests.post(rollup_server + "/report", json={"payload": str2hex(msg)})
-        logger.info(f"Received report status {response.status_code} body {response.content}")
-
-    return status
-
-def handle_inspect(data):
-    logger.info(f"Received advance request data {data}")
-
-    status = "accept"
-    try:
-        input = hex2str(data["payload"])
-        logger.info(f"Received input: {input}")
-
-        # subprocess
-        fortune = subprocess.check_output("fortune", shell=True, stderr=subprocess.STDOUT).decode()
-
-
-        # Emits notice with result of calculation
-        logger.info(f"Adding notice with payload: '{fortune}'")
-        response = requests.post(rollup_server + "/report", json={"payload": str2hex(str(fortune))})
+        logger.info(f"Adding notice with payload: '{input}'")
+        response = requests.post(rollup_server + "/notice", json={"payload": str2hex(str(input))})
         logger.info(f"Received notice status {response.status_code} body {response.content}")
 
     except Exception as e:
@@ -88,7 +46,6 @@ def handle_inspect(data):
 
 handlers = {
     "advance_state": handle_advance,
-    "inspect_state": handle_inspect,
 }
 
 finish = {"status": "accept"}
