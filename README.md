@@ -1,6 +1,6 @@
 # ChronoSnap
 **Built with Cartesi!**
-** Submission to the SMU Blockchain Club x Cartesi Hackathon. April 2023**
+**Submission to the SMU Blockchain Club x Cartesi Hackathon. April 2023**
 
 [Devpost link](https://devpost.com/software/chronosnap)
 
