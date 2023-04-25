@@ -1,5 +1,8 @@
 # ChronoSnap
-## Built with Cartesi Machine
+**Built with Cartesi!**
+** Submission to the SMU Blockchain Club x Cartesi Hackathon. April 2023**
+
+[Devpost link](https://devpost.com/software/chronosnap)
 
 ChronoSnap is a system designed to seperate photos taken of the real world from AI generations.
 
